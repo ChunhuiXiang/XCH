@@ -134,10 +134,10 @@ func.apply(null,[1,2,3]);
 ```
 math.max.apply(null,[1,2,3,4,5])//输出5
 ```
-
+- 在闭包中，如果要解决循环引用带来的内存泄露问题，我们只需要把循环引用中的变量设为null。将变量手动设置为null意味着切断变量与它此前引用的值之间的连接。
 
 - [ ] 改变this的指向
-- 
+
 
 ```
 var obj1={
@@ -152,5 +152,73 @@ var getname=function(){
     alert(this.name);
 };
 
-getname()
+getname()//输出 window
+getname.call(obj1);//输出seve 当执行时。this指向变为obj1
+getname.call(obj2);//输出anne 当执行时。this指向变为obj2
 ```
+
+- 借用其他对象的方法
+1. - [x] -  借用构造函数
+
+```
+var A=function(name){
+    this.name=name;
+}
+var B=function(){
+    A.apply(this,arguments);
+}
+B.prototype.getname=function(){
+    return this.name;
+};
+var b=new B('seve');
+console.log(b.getname());//输出seve
+
+```
+2.Array.prototype.push 往arguments中添加一个新的元素。
+>A.apply( arguments),函数的参数列表arguments 是一个类数组对象，但不能像数组一样进行排序操作或者往集合中加入一个新的元素。所以用Array.prototype对象上的方法。
+
+```
+（function(){
+    Array.prototype.push.call(arguments,3);//往arguments添加一个新元素3
+    console.log(arguments);//输出 [1,2,3]
+}）(1,2)
+```
+> 我们可以把“任意”对象传入Array.prototype.push
+
+```
+var a={};
+Array.prototype.push.call(a,'forst');
+alert(a.length);//1
+alert(a[0])//forst
+```
+，在IE浏览器中需要给对象a设置length属性
+
+```
+var a={
+    length:0
+};
+```
+
+> 任意满足2个条件
+1. 对象本身要可以存取属性,object可以，number类型不可以
+
+```
+var a=1;
+Array.prototype.push.call(a,'fost');
+console.log(a.length);//输出 undefined  
+console.log(a[0]);//输出：undefined
+```
+2. 对象的length属性可读
+
+
+
+
+```
+var fuc()=function(){
+    Array.prototype.push.call(func,'first');
+
+    alert(func.length);//报错
+}
+```
+
+
