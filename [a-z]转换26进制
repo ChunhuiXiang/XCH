@@ -1,0 +1,24 @@
+package test;
+import java.io.*;
+
+public class Main1{
+public static void main(String args[]) throws IOException
+{
+BufferedReader zimu=new BufferedReader(new InputStreamReader(System.in));
+while(true){
+String s=zimu.readLine();
+int n=s.length();
+int[] A=new int[n];
+int num=0;
+for(int i=0;i<n;i++){
+	   char str=s.charAt(i);
+	   int a=(int)str;	   
+     int b=(a-32-65);
+     A[i]=b;
+     num=(int) (b*(Math.pow(26, i)));
+     num++;
+}
+System.out.print((num-1));
+}
+}
+}
