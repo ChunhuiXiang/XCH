@@ -1,0 +1,37 @@
+package test;
+
+import java.util.Scanner;
+
+public class Zhishu {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+   Scanner s=new Scanner(System.in);
+//   while(s.hasNext()){
+//	   int a=s.nextInt();
+//	   int b=s.nextInt();
+//	   System.out.print(a+b);
+//   }
+  while(s.hasNext()){
+	  int n=s.nextInt();
+	  int count=0;
+	  if(n>1&&n<=1000){
+		  
+		  for(int i=2;i<=n;i++){
+			  
+			  if(n%i==0)
+				  count++;}}
+			  if(count==1){
+				  System.out.print(n+"是质数");
+			  }
+		  }
+	  }
+  
+	  }
+  
+  
+	   
+   
+	
+
+
